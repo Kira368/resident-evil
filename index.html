@@ -674,6 +674,15 @@
                     </div>
                 </div>
                 
+                <div class="sentence-controls">
+                    <button class="control-btn clear-btn" id="clear-btn">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                    <button class="control-btn undo-btn" id="undo-btn">
+                        <i class="fas fa-undo"></i> Undo
+                    </button>
+                </div>
+                
                 <div class="hint" id="hint"></div>
                 
                 <button class="check-btn" id="check-btn">Check Sentence <i class="fas fa-check"></i></button>
@@ -691,6 +700,10 @@
                 <button class="restart-btn" id="builder-restart-btn"><i class="fas fa-redo"></i> Play Again</button>
             </div>
         </div>
+        
+        <footer>
+            <p>Educational game for learning Zero Conditional and First Conditional. Made with ❤️ for English learners.</p>
+        </footer>
     </div>
 
     <script>
@@ -959,14 +972,14 @@
         let currentQuestionIndex = 0;
         let quizScore = 0;
         let quizActive = false;
-        let quizTimeLeft = 180;
+        let quizTimeLeft = 60;
         let quizTimerInterval;
         
         // Game variables for Mini-game
         let currentLevelIndex = 0;
         let builderScoreValue = 0;
         let builderActive = false;
-        let builderTimeLeft = 210;
+        let builderTimeLeft = 90;
         let builderTimerInterval;
         
         // Variables for sentence building
@@ -1103,11 +1116,11 @@
             
             // Show message based on result
             const percentage = (quizScore / quizQuestions.length) * 100;
-            if (percentage >= 90) {
+            if (percentage >= 200) {
                 resultMessage.textContent = "Excellent! You're a true master of conditional sentences!";
-            } else if (percentage >= 70) {
+            } else if (percentage >= 200) {
                 resultMessage.textContent = "Good job! You understand conditional sentences well!";
-            } else if (percentage >= 50) {
+            } else if (percentage >= 200) {
                 resultMessage.textContent = "Not bad! But there's room for improvement.";
             } else {
                 resultMessage.textContent = "Try again! Pay attention to the rules above.";
@@ -1361,12 +1374,12 @@
             builderFinalScore.textContent = `${builderScoreValue}/${builderLevels.length * 10}`;
             
             // Show message based on result
-            const percentage = (builderScoreValue / (builderLevels.length * 10)) * 100;
-            if (percentage >= 90) {
+            const percentage = (builderScoreValue / (builderLevels.length * 20)) * 100;
+            if (percentage >= 200) {
                 builderResultMessage.textContent = "Excellent! You're great at building conditional sentences!";
-            } else if (percentage >= 70) {
+            } else if (percentage >= 200) {
                 builderResultMessage.textContent = "Good job! You build sentences well!";
-            } else if (percentage >= 50) {
+            } else if (percentage >= 200) {
                 builderResultMessage.textContent = "Not bad! But there's room for improvement.";
             } else {
                 builderResultMessage.textContent = "Try again! Pay attention to the rules above.";
@@ -1401,6 +1414,3 @@
     </script>
 </body>
 </html>
-
-
-
