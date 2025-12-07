@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Conditional Games: Zero vs First</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,29 +12,32 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #fff;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
+            padding: 0 5px;
         }
         
         /* Header */
         header {
             text-align: center;
-            padding: 20px 0 15px;
+            padding: 15px 0 10px;
         }
         
         h1 {
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             background: linear-gradient(to right, #00b4db, #0083b0);
             -webkit-background-clip: text;
@@ -43,85 +46,81 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         
         .subtitle {
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            margin-bottom: 15px;
+            font-size: 1rem;
+            margin-bottom: 12px;
             opacity: 0.9;
-            line-height: 1.4;
+            line-height: 1.3;
+            padding: 0 5px;
         }
         
         /* Game selector */
         .game-selector {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
         
         .game-btn {
-            padding: 12px 20px;
-            font-size: 1rem;
+            padding: 10px 15px;
+            font-size: 0.95rem;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border: 2px solid #00b4db;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex: 1;
-            min-width: 140px;
-            text-align: center;
+            gap: 6px;
+            min-width: 120px;
+            white-space: nowrap;
         }
         
-        .game-btn:hover, .game-btn.active {
+        .game-btn.active {
             background-color: #00b4db;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 180, 219, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 180, 219, 0.4);
         }
         
         /* Rules container */
         .rules-container {
             background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         
         .rules-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 10px;
             color: #ffcc00;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
         .rules {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        @media (min-width: 768px) {
-            .rules {
-                grid-template-columns: 1fr 1fr;
-            }
+            gap: 12px;
         }
         
         .rule-card {
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 5px solid;
+            border-radius: 8px;
+            padding: 12px;
+            border-left: 4px solid;
         }
         
         .zero-conditional {
@@ -133,33 +132,33 @@
         }
         
         .rule-card h3 {
-            margin-bottom: 8px;
-            font-size: 1.3rem;
+            margin-bottom: 6px;
+            font-size: 1.1rem;
         }
         
         .rule-card p {
-            margin-bottom: 8px;
-            line-height: 1.4;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            font-size: 0.9rem;
         }
         
         .example {
             font-style: italic;
-            margin-top: 10px;
-            padding: 8px;
+            margin-top: 8px;
+            padding: 6px;
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 5px;
-            font-size: 0.9rem;
-            line-height: 1.3;
+            font-size: 0.85rem;
+            line-height: 1.2;
         }
         
         /* Game container */
         .game-container {
             background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         
         /* Score board */
@@ -168,42 +167,42 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            gap: 10px;
+            gap: 8px;
         }
         
         .score {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             text-align: center;
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
         }
         
         .score-value {
             color: #ffcc00;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
         
         .timer {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: #ffcc00;
             font-weight: bold;
             text-align: center;
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
         }
         
         /* Progress bar */
         .progress-bar {
             width: 100%;
-            height: 12px;
+            height: 10px;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
             overflow: hidden;
         }
         
@@ -211,73 +210,60 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(to right, #4dabf7, #ff6b6b);
-            border-radius: 8px;
+            border-radius: 5px;
             transition: width 0.5s ease;
         }
         
         /* Quiz game styles */
         .question-container {
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             text-align: center;
         }
         
         .question {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        
-        .highlight {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
         
         .options {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        @media (min-width: 600px) {
-            .options {
-                grid-template-columns: 1fr 1fr;
-            }
+            gap: 10px;
+            margin-bottom: 15px;
         }
         
         .option-btn {
-            padding: 16px;
-            font-size: 1.1rem;
+            padding: 14px;
+            font-size: 1rem;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: bold;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border: 2px solid transparent;
-            min-height: 70px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
         
-        .option-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        .option-btn:active {
+            transform: scale(0.98);
         }
         
         .zero-option {
             background-color: rgba(77, 171, 247, 0.3);
         }
         
-        .zero-option:hover {
-            background-color: rgba(77, 171, 247, 0.5);
+        .zero-option.selected {
+            background-color: rgba(77, 171, 247, 0.7);
             border-color: #4dabf7;
         }
         
@@ -285,18 +271,18 @@
             background-color: rgba(255, 107, 107, 0.3);
         }
         
-        .first-option:hover {
-            background-color: rgba(255, 107, 107, 0.5);
+        .first-option.selected {
+            background-color: rgba(255, 107, 107, 0.7);
             border-color: #ff6b6b;
         }
         
         /* Feedback */
         .feedback {
-            padding: 16px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: none;
         }
         
@@ -316,71 +302,94 @@
         .next-btn, .check-btn {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(to right, #4dabf7, #ff6b6b);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
+            transition: all 0.2s ease;
+            margin-top: 12px;
         }
         
-        .next-btn:hover, .check-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+        .next-btn:active, .check-btn:active {
+            transform: scale(0.98);
         }
         
-        /* Mini-game styles */
+        /* Mini-game styles - MOBILE OPTIMIZED */
         .mini-game-container {
             display: none;
         }
         
         .sentence-builder {
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 18px;
+            padding: 15px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
         
-        .sentence-parts {
+        .sentence-instruction {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        /* Word selection area */
+        .word-selection {
+            margin-bottom: 15px;
+        }
+        
+        .selectable-words {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
-        .word-box {
-            padding: 12px 18px;
+        .word-option {
+            padding: 12px 15px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            cursor: move;
             font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
             user-select: none;
-            touch-action: none;
+            min-width: 60px;
+            text-align: center;
         }
         
-        .word-box.dragging {
-            opacity: 0.5;
+        .word-option:active {
+            transform: scale(0.95);
         }
         
+        .word-option.available {
+            background-color: rgba(77, 171, 247, 0.4);
+        }
+        
+        .word-option.used {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+            cursor: default;
+        }
+        
+        /* Sentence building area */
         .sentence-area {
-            min-height: 100px;
+            min-height: 80px;
             background-color: rgba(0, 0, 0, 0.2);
             border: 3px dashed rgba(255, 255, 255, 0.3);
             border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 15px;
+            padding: 12px;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+            justify-content: flex-start;
         }
         
         .sentence-area.valid {
@@ -393,115 +402,163 @@
             background-color: rgba(231, 76, 60, 0.1);
         }
         
+        .sentence-word {
+            padding: 10px 14px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .sentence-word:active {
+            transform: scale(0.95);
+            background-color: rgba(255, 107, 107, 0.5);
+        }
+        
         .hint {
-            margin-top: 12px;
-            font-size: 1rem;
+            margin-top: 10px;
+            font-size: 0.95rem;
             color: #ffcc00;
-            line-height: 1.4;
+            line-height: 1.3;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+        
+        /* Control buttons for sentence builder */
+        .sentence-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .control-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .clear-btn {
+            background-color: rgba(231, 76, 60, 0.3);
+            color: white;
+        }
+        
+        .undo-btn {
+            background-color: rgba(241, 196, 15, 0.3);
+            color: white;
         }
         
         /* Game complete screens */
         .game-complete {
             text-align: center;
-            padding: 30px 15px;
+            padding: 20px 10px;
             display: none;
         }
         
         .result-title {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: #ffcc00;
         }
         
         .final-score {
-            font-size: clamp(2.2rem, 6vw, 3rem);
-            margin: 15px 0;
+            font-size: 2.2rem;
+            margin: 12px 0;
             color: #ffcc00;
         }
         
         .restart-btn {
-            padding: 14px 30px;
+            padding: 12px 25px;
             background: linear-gradient(to right, #4dabf7, #ff6b6b);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
+            transition: all 0.2s ease;
+            margin-top: 15px;
         }
         
-        .restart-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+        .restart-btn:active {
+            transform: scale(0.98);
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 15px;
-            font-size: 0.9rem;
+            padding: 10px;
+            font-size: 0.8rem;
             opacity: 0.8;
-            line-height: 1.4;
+            line-height: 1.3;
         }
         
         .explanation {
-            margin-top: 12px;
-            font-size: 1rem;
-            line-height: 1.5;
-            padding: 12px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            padding: 10px;
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             display: none;
         }
         
-        /* Mobile optimizations */
-        @media (max-width: 480px) {
+        /* Small screen optimizations */
+        @media (max-width: 350px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
             .game-btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-                min-width: 120px;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                min-width: 100px;
             }
             
-            .score-board {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
+            .question {
+                font-size: 1.1rem;
             }
             
-            .score, .timer {
-                min-width: 100%;
-                display: flex;
-                justify-content: space-between;
-                padding: 8px 0;
+            .option-btn {
+                padding: 12px;
+                font-size: 0.95rem;
             }
             
-            .question-container {
-                padding: 15px 10px;
-            }
-            
-            .word-box {
-                padding: 10px 15px;
+            .word-option, .sentence-word {
+                padding: 10px 12px;
                 font-size: 1rem;
-            }
-            
-            .sentence-area {
-                min-height: 80px;
-                padding: 10px;
             }
         }
         
-        /* Touch device optimizations */
-        @media (hover: none) {
-            .option-btn:hover, .game-btn:hover, .next-btn:hover, 
-            .check-btn:hover, .restart-btn:hover {
-                transform: none;
+        /* Landscape mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                max-width: 700px;
+                margin: 0 auto;
             }
             
-            .option-btn:active, .game-btn:active, .next-btn:active,
-            .check-btn:active, .restart-btn:active {
-                transform: scale(0.98);
+            .rules {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .score-board {
+                flex-wrap: nowrap;
+            }
+            
+            .selectable-words {
+                max-height: 80px;
+                overflow-y: auto;
             }
         }
     </style>
@@ -588,7 +645,7 @@
             </div>
         </div>
         
-        <!-- Mini-game: Sentence Builder -->
+        <!-- Mini-game: Sentence Builder (MOBILE OPTIMIZED) -->
         <div class="game-container mini-game-container" id="builder-game">
             <div class="score-board">
                 <div class="score">
@@ -605,17 +662,30 @@
             </div>
             
             <div class="sentence-builder">
-                <h3 id="sentence-instruction">Build the correct sentence from the words below:</h3>
-                <div class="sentence-parts" id="sentence-parts">
-                    <!-- Words will be added by JavaScript -->
-                </div>
+                <h3 class="sentence-instruction" id="sentence-instruction">Build the correct sentence:</h3>
                 
                 <div class="sentence-area" id="sentence-area">
-                    Drag words here
+                    Tap words below to build your sentence
                 </div>
                 
-                <button class="check-btn" id="check-btn">Check <i class="fas fa-check"></i></button>
+                <div class="word-selection">
+                    <div class="selectable-words" id="selectable-words">
+                        <!-- Word buttons will be added by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="sentence-controls">
+                    <button class="control-btn clear-btn" id="clear-btn">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                    <button class="control-btn undo-btn" id="undo-btn">
+                        <i class="fas fa-undo"></i> Undo
+                    </button>
+                </div>
+                
                 <div class="hint" id="hint"></div>
+                
+                <button class="check-btn" id="check-btn">Check Sentence <i class="fas fa-check"></i></button>
                 
                 <div class="feedback" id="builder-feedback"></div>
                 
@@ -877,7 +947,7 @@
         const builderGame = document.getElementById('builder-game');
         const builderScore = document.getElementById('builder-score');
         const builderProgress = document.getElementById('builder-progress');
-        const sentenceParts = document.getElementById('sentence-parts');
+        const selectableWords = document.getElementById('selectable-words');
         const sentenceArea = document.getElementById('sentence-area');
         const checkBtn = document.getElementById('check-btn');
         const hint = document.getElementById('hint');
@@ -891,6 +961,8 @@
         const totalLevelsEl = document.getElementById('total-levels');
         const sentenceInstruction = document.getElementById('sentence-instruction');
         const builderTimer = document.getElementById('builder-timer');
+        const clearBtn = document.getElementById('clear-btn');
+        const undoBtn = document.getElementById('undo-btn');
         
         // Elements for game switching
         const quizBtn = document.getElementById('quiz-btn');
@@ -909,7 +981,11 @@
         let builderActive = false;
         let builderTimeLeft = 90;
         let builderTimerInterval;
-        let draggedWord = null;
+        
+        // Variables for sentence building
+        let currentSentence = [];
+        let availableWords = [];
+        let wordHistory = [];
         
         // Initialize Quiz
         function initQuiz() {
@@ -964,7 +1040,7 @@
                 const button = document.createElement('button');
                 button.className = `option-btn ${index === 0 ? 'zero-option' : 'first-option'}`;
                 button.textContent = option;
-                button.addEventListener('click', () => selectOption(index));
+                button.addEventListener('click', () => selectOption(index, button));
                 optionsContainer.appendChild(button);
             });
             
@@ -975,12 +1051,15 @@
         }
         
         // Select option in Quiz
-        function selectOption(selectedIndex) {
+        function selectOption(selectedIndex, button) {
             if (!quizActive) return;
             
             quizActive = false;
             const question = quizQuestions[currentQuestionIndex];
             const optionButtons = document.querySelectorAll('.option-btn');
+            
+            // Visual feedback for selected button
+            button.classList.add('selected');
             
             // Show correct answer and feedback
             if (selectedIndex === question.correct) {
@@ -1000,13 +1079,10 @@
             explanation.style.display = 'block';
             
             // Highlight correct and incorrect answers
-            optionButtons.forEach((button, index) => {
-                button.disabled = true;
+            optionButtons.forEach((btn, index) => {
+                btn.disabled = true;
                 if (index === question.correct) {
-                    button.style.border = '3px solid #2ecc71';
-                    button.style.backgroundColor = index === 0 ? 'rgba(77, 171, 247, 0.7)' : 'rgba(255, 107, 107, 0.7)';
-                } else if (index === selectedIndex && index !== question.correct) {
-                    button.style.border = '3px solid #e74c3c';
+                    btn.classList.add('selected');
                 }
             });
             
@@ -1097,121 +1173,153 @@
             // Update level number
             currentLevelEl.textContent = currentLevelIndex + 1;
             
+            // Reset sentence building
+            currentSentence = [];
+            availableWords = [...level.words];
+            wordHistory = [];
+            
             // Clear containers
-            sentenceParts.innerHTML = '';
-            sentenceArea.innerHTML = 'Drag words here';
+            selectableWords.innerHTML = '';
+            sentenceArea.innerHTML = '';
             sentenceArea.className = 'sentence-area';
             
-            // Create shuffled words
-            const shuffledWords = [...level.words].sort(() => Math.random() - 0.5);
-            
-            shuffledWords.forEach((word, index) => {
-                const wordBox = document.createElement('div');
-                wordBox.className = 'word-box';
-                wordBox.textContent = word;
-                wordBox.draggable = true;
-                wordBox.dataset.index = level.words.indexOf(word);
+            // Create word buttons
+            availableWords.forEach((word, index) => {
+                const wordButton = document.createElement('div');
+                wordButton.className = 'word-option available';
+                wordButton.textContent = word;
+                wordButton.dataset.index = index;
+                wordButton.dataset.word = word;
                 
-                // Add touch events for mobile
-                wordBox.addEventListener('touchstart', (e) => {
-                    draggedWord = wordBox;
-                    wordBox.classList.add('dragging');
-                    e.preventDefault();
-                });
-                
-                wordBox.addEventListener('touchend', () => {
-                    wordBox.classList.remove('dragging');
-                });
-                
-                // Add mouse events for desktop
-                wordBox.addEventListener('dragstart', (e) => {
-                    draggedWord = wordBox;
-                    wordBox.classList.add('dragging');
-                    e.dataTransfer.setData('text/plain', wordBox.dataset.index);
-                });
-                
-                wordBox.addEventListener('dragend', () => {
-                    wordBox.classList.remove('dragging');
-                });
-                
-                sentenceParts.appendChild(wordBox);
-            });
-            
-            // Setup drop area for mobile
-            sentenceArea.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-            });
-            
-            sentenceArea.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                if (draggedWord) {
-                    // Check if word already added
-                    const wordIndex = draggedWord.dataset.index;
-                    const existingWord = sentenceArea.querySelector(`[data-index="${wordIndex}"]`);
-                    
-                    if (!existingWord) {
-                        const newWord = draggedWord.cloneNode(true);
-                        newWord.draggable = true;
-                        newWord.style.cursor = 'pointer';
-                        
-                        // Add tap to remove on mobile
-                        newWord.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            sentenceArea.removeChild(newWord);
-                            // Return word to top area
-                            sentenceParts.appendChild(draggedWord);
-                        });
-                        
-                        // Add click to remove on desktop
-                        newWord.addEventListener('click', () => {
-                            sentenceArea.removeChild(newWord);
-                            sentenceParts.appendChild(draggedWord);
-                        });
-                        
-                        sentenceArea.appendChild(newWord);
+                wordButton.addEventListener('click', () => {
+                    if (!wordButton.classList.contains('used') && builderActive) {
+                        addWordToSentence(word, index, wordButton);
                     }
-                }
-                draggedWord = null;
-            });
-            
-            // Setup drop area for desktop
-            sentenceArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                sentenceArea.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-            });
-            
-            sentenceArea.addEventListener('dragleave', () => {
-                sentenceArea.style.backgroundColor = '';
-            });
-            
-            sentenceArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                sentenceArea.style.backgroundColor = '';
+                });
                 
-                if (draggedWord) {
-                    // Check if word already added
-                    const wordIndex = draggedWord.dataset.index;
-                    const existingWord = sentenceArea.querySelector(`[data-index="${wordIndex}"]`);
-                    
-                    if (!existingWord) {
-                        const newWord = draggedWord.cloneNode(true);
-                        newWord.draggable = true;
-                        newWord.style.cursor = 'pointer';
-                        
-                        newWord.addEventListener('click', () => {
-                            sentenceArea.removeChild(newWord);
-                            // Return word to top area
-                            sentenceParts.appendChild(draggedWord);
-                        });
-                        
-                        sentenceArea.appendChild(newWord);
-                    }
-                }
+                selectableWords.appendChild(wordButton);
             });
+            
+            // Set up control buttons
+            clearBtn.onclick = clearSentence;
+            undoBtn.onclick = undoLastWord;
             
             // Hide feedback
             builderFeedback.style.display = 'none';
             builderNextBtn.style.display = 'none';
+        }
+        
+        // Add word to sentence
+        function addWordToSentence(word, index, button) {
+            // Mark word as used
+            button.classList.remove('available');
+            button.classList.add('used');
+            
+            // Add to sentence
+            currentSentence.push({word, originalIndex: index});
+            wordHistory.push({word, originalIndex: index, button});
+            
+            // Update sentence display
+            updateSentenceDisplay();
+        }
+        
+        // Update sentence display
+        function updateSentenceDisplay() {
+            sentenceArea.innerHTML = '';
+            
+            if (currentSentence.length === 0) {
+                const placeholder = document.createElement('div');
+                placeholder.textContent = 'Tap words below to build your sentence';
+                placeholder.style.color = 'rgba(255, 255, 255, 0.6)';
+                placeholder.style.fontStyle = 'italic';
+                sentenceArea.appendChild(placeholder);
+                return;
+            }
+            
+            currentSentence.forEach((item, index) => {
+                const wordElement = document.createElement('div');
+                wordElement.className = 'sentence-word';
+                wordElement.textContent = item.word;
+                wordElement.dataset.index = index;
+                
+                wordElement.addEventListener('click', () => {
+                    removeWordFromSentence(index);
+                });
+                
+                sentenceArea.appendChild(wordElement);
+            });
+        }
+        
+        // Remove word from sentence
+        function removeWordFromSentence(sentenceIndex) {
+            if (!builderActive) return;
+            
+            const removedWord = currentSentence[sentenceIndex];
+            
+            // Remove from sentence
+            currentSentence.splice(sentenceIndex, 1);
+            
+            // Find and restore the word button
+            const wordButton = document.querySelector(`.word-option[data-index="${removedWord.originalIndex}"]`);
+            if (wordButton) {
+                wordButton.classList.remove('used');
+                wordButton.classList.add('available');
+            }
+            
+            // Update word history
+            const historyIndex = wordHistory.findIndex(item => 
+                item.word === removedWord.word && 
+                item.originalIndex === removedWord.originalIndex
+            );
+            
+            if (historyIndex !== -1) {
+                wordHistory.splice(historyIndex, 1);
+            }
+            
+            // Update display
+            updateSentenceDisplay();
+        }
+        
+        // Clear entire sentence
+        function clearSentence() {
+            if (!builderActive || currentSentence.length === 0) return;
+            
+            // Restore all word buttons
+            currentSentence.forEach(item => {
+                const wordButton = document.querySelector(`.word-option[data-index="${item.originalIndex}"]`);
+                if (wordButton) {
+                    wordButton.classList.remove('used');
+                    wordButton.classList.add('available');
+                }
+            });
+            
+            // Clear sentence and history
+            currentSentence = [];
+            wordHistory = [];
+            
+            // Update display
+            updateSentenceDisplay();
+        }
+        
+        // Undo last word
+        function undoLastWord() {
+            if (!builderActive || currentSentence.length === 0) return;
+            
+            // Remove last word from sentence
+            const lastWord = currentSentence.pop();
+            
+            // Restore the word button
+            const wordButton = document.querySelector(`.word-option[data-index="${lastWord.originalIndex}"]`);
+            if (wordButton) {
+                wordButton.classList.remove('used');
+                wordButton.classList.add('available');
+            }
+            
+            // Remove from history
+            wordHistory.pop();
+            
+            // Update display
+            updateSentenceDisplay();
         }
         
         // Check sentence correctness
@@ -1219,8 +1327,7 @@
             if (!builderActive) return;
             
             const level = builderLevels[currentLevelIndex];
-            const wordsInArea = Array.from(sentenceArea.querySelectorAll('.word-box'));
-            const userOrder = wordsInArea.map(word => parseInt(word.dataset.index));
+            const userOrder = currentSentence.map(word => word.originalIndex);
             
             // Check if order matches
             const isCorrect = JSON.stringify(userOrder) === JSON.stringify(level.correctOrder);
@@ -1304,13 +1411,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             initQuiz();
         });
-        
-        // Prevent scrolling when dragging on mobile
-        document.addEventListener('touchmove', function(e) {
-            if (draggedWord) {
-                e.preventDefault();
-            }
-        }, { passive: false });
     </script>
 </body>
 </html>
+
