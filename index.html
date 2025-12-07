@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conditional Master: Zero vs First</title>
+    <title>Conditional Games: Zero vs First</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Base styles */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +18,7 @@
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
         
         .container {
@@ -25,13 +26,14 @@
             margin: 0 auto;
         }
         
+        /* Header */
         header {
             text-align: center;
-            padding: 30px 0;
+            padding: 20px 0 15px;
         }
         
         h1 {
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 5vw, 3rem);
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             background: linear-gradient(to right, #00b4db, #0083b0);
@@ -41,75 +43,84 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            margin-bottom: 15px;
             opacity: 0.9;
+            line-height: 1.4;
         }
         
+        /* Game selector */
         .game-selector {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         
         .game-btn {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 12px 20px;
+            font-size: 1rem;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border: 2px solid #00b4db;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
         }
         
         .game-btn:hover, .game-btn.active {
             background-color: #00b4db;
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 180, 219, 0.4);
         }
         
+        /* Rules container */
         .rules-container {
             background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
         }
         
         .rules-title {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #ffcc00;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
         
         .rules {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
         
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .rules {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
         }
         
         .rule-card {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             border-left: 5px solid;
         }
         
@@ -122,8 +133,14 @@
         }
         
         .rule-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+        
+        .rule-card p {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.95rem;
         }
         
         .example {
@@ -132,42 +149,61 @@
             padding: 8px;
             background-color: rgba(0, 0, 0, 0.2);
             border-radius: 5px;
+            font-size: 0.9rem;
+            line-height: 1.3;
         }
         
+        /* Game container */
         .game-container {
             background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
         }
         
+        /* Score board */
         .score-board {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            gap: 10px;
         }
         
         .score {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: bold;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
         }
         
         .score-value {
             color: #ffcc00;
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
         
+        .timer {
+            font-size: 1.1rem;
+            color: #ffcc00;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        /* Progress bar */
         .progress-bar {
             width: 100%;
-            height: 15px;
+            height: 12px;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin-bottom: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
         
@@ -175,61 +211,65 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(to right, #4dabf7, #ff6b6b);
-            border-radius: 10px;
+            border-radius: 8px;
             transition: width 0.5s ease;
         }
         
-        /* Стили для игры с вопросами */
+        /* Quiz game styles */
         .question-container {
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 25px;
+            padding: 18px;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
         .question {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 12px;
             line-height: 1.4;
         }
         
         .highlight {
             background-color: rgba(255, 255, 255, 0.2);
-            padding: 2px 8px;
-            border-radius: 5px;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
         
         .options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         
-        @media (max-width: 600px) {
+        @media (min-width: 600px) {
             .options {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
         }
         
         .option-btn {
-            padding: 20px;
-            font-size: 1.2rem;
+            padding: 16px;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border: 2px solid transparent;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .option-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
         }
         
         .zero-option {
@@ -250,12 +290,13 @@
             border-color: #ff6b6b;
         }
         
+        /* Feedback */
         .feedback {
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             text-align: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             display: none;
         }
         
@@ -271,36 +312,37 @@
             display: block;
         }
         
-        .next-btn {
+        /* Buttons */
+        .next-btn, .check-btn {
             display: block;
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: linear-gradient(to right, #4dabf7, #ff6b6b);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.3rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
-        .next-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        .next-btn:hover, .check-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
         }
         
-        /* Стили для мини-игры "Собери предложение" */
+        /* Mini-game styles */
         .mini-game-container {
             display: none;
         }
         
         .sentence-builder {
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 25px;
+            padding: 18px;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
@@ -308,17 +350,18 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         
         .word-box {
-            padding: 15px 25px;
+            padding: 12px 18px;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: move;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             user-select: none;
+            touch-action: none;
         }
         
         .word-box.dragging {
@@ -326,17 +369,18 @@
         }
         
         .sentence-area {
-            min-height: 120px;
+            min-height: 100px;
             background-color: rgba(0, 0, 0, 0.2);
             border: 3px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
             justify-content: center;
+            font-size: 1rem;
         }
         
         .sentence-area.valid {
@@ -349,102 +393,131 @@
             background-color: rgba(231, 76, 60, 0.1);
         }
         
-        .check-btn {
-            padding: 15px 40px;
-            background: linear-gradient(to right, #00b4db, #0083b0);
+        .hint {
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #ffcc00;
+            line-height: 1.4;
+        }
+        
+        /* Game complete screens */
+        .game-complete {
+            text-align: center;
+            padding: 30px 15px;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 15px;
+            color: #ffcc00;
+        }
+        
+        .final-score {
+            font-size: clamp(2.2rem, 6vw, 3rem);
+            margin: 15px 0;
+            color: #ffcc00;
+        }
+        
+        .restart-btn {
+            padding: 14px 30px;
+            background: linear-gradient(to right, #4dabf7, #ff6b6b);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.3rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
         }
         
-        .check-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 180, 219, 0.4);
-        }
-        
-        .hint {
-            margin-top: 15px;
-            font-size: 1.1rem;
-            color: #ffcc00;
-        }
-        
-        .game-complete {
-            text-align: center;
-            padding: 40px;
-            display: none;
-        }
-        
-        .result-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #ffcc00;
-        }
-        
-        .final-score {
-            font-size: 3rem;
-            margin: 20px 0;
-            color: #ffcc00;
-        }
-        
-        .restart-btn {
-            padding: 15px 40px;
-            background: linear-gradient(to right, #4dabf7, #ff6b6b);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 30px;
-        }
-        
         .restart-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
         }
         
+        /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             font-size: 0.9rem;
             opacity: 0.8;
+            line-height: 1.4;
         }
         
         .explanation {
-            margin-top: 15px;
-            font-size: 1.1rem;
+            margin-top: 12px;
+            font-size: 1rem;
             line-height: 1.5;
-            padding: 15px;
+            padding: 12px;
             background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            border-radius: 8px;
             display: none;
         }
         
-        .timer {
-            font-size: 1.5rem;
-            color: #ffcc00;
-            font-weight: bold;
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .game-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+            
+            .score-board {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .score, .timer {
+                min-width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 0;
+            }
+            
+            .question-container {
+                padding: 15px 10px;
+            }
+            
+            .word-box {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .sentence-area {
+                min-height: 80px;
+                padding: 10px;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .option-btn:hover, .game-btn:hover, .next-btn:hover, 
+            .check-btn:hover, .restart-btn:hover {
+                transform: none;
+            }
+            
+            .option-btn:active, .game-btn:active, .next-btn:active,
+            .check-btn:active, .restart-btn:active {
+                transform: scale(0.98);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-gamepad"></i> Conditional Master</h1>
-            <p class="subtitle">Made With the support of cola and chips:)</p>
+            <h1><i class="fas fa-gamepad"></i> Conditional Games</h1>
+            <p class="subtitle">Test your knowledge of Zero Conditional and First Conditional!</p>
             
             <div class="game-selector">
                 <button class="game-btn active" id="quiz-btn">
                     <i class="fas fa-question-circle"></i> Quiz
                 </button>
                 <button class="game-btn" id="builder-btn">
-                    <i class="fas fa-puzzle-piece"></i> Collect an offer
+                    <i class="fas fa-puzzle-piece"></i> Sentence Builder
                 </button>
             </div>
         </header>
@@ -452,12 +525,12 @@
         <div class="rules-container">
             <div class="rules-title">
                 <i class="fas fa-info-circle"></i>
-                <h2>Rules of the game</h2>
+                <h2>Game Rules</h2>
             </div>
             <div class="rules">
                 <div class="rule-card zero-conditional">
                     <h3>Zero Conditional</h3>
-                    <p>Used to express general truths, scientific facts and patterns.</p>
+                    <p>Used for general truths, scientific facts, and laws of nature.</p>
                     <p><strong>Structure:</strong> If + Present Simple, Present Simple</p>
                     <div class="example">
                         <strong>Example:</strong> If you heat ice, it melts.
@@ -465,8 +538,8 @@
                 </div>
                 <div class="rule-card first-conditional">
                     <h3>First Conditional</h3>
-                    <p>Used to express real future situations and their possible consequences.</p>
-                    <p><strong>Structure:</strong> If + Present Simple, will + инфинитив</p>
+                    <p>Used for real future situations and their possible consequences.</p>
+                    <p><strong>Structure:</strong> If + Present Simple, will + infinitive</p>
                     <div class="example">
                         <strong>Example:</strong> If it rains, I will take an umbrella.
                     </div>
@@ -474,16 +547,16 @@
             </div>
         </div>
         
-        <!-- Основная игра: Викторина -->
+        <!-- Main game: Quiz -->
         <div class="game-container" id="quiz-game">
             <div class="score-board">
                 <div class="score">
-                    Вопрос: <span id="current-question">1</span>/<span id="total-questions">20</span>
+                    Question: <span id="current-question">1</span>/<span id="total-questions">20</span>
                 </div>
                 <div class="score">
-                    Счёт: <span class="score-value" id="score-value">0</span>
+                    Score: <span class="score-value" id="score-value">0</span>
                 </div>
-                <div class="score timer" id="quiz-timer">Время: 60с</div>
+                <div class="timer" id="quiz-timer">Time: 60s</div>
             </div>
             
             <div class="progress-bar">
@@ -492,39 +565,39 @@
             
             <div id="game-area">
                 <div class="question-container">
-                    <p class="question" id="question-text">Если заменить текст здесь на вопрос...</p>
+                    <p class="question" id="question-text">If you ______ water to 100°C, it ______.</p>
                 </div>
                 
                 <div class="options" id="options-container">
-                    <!-- Кнопки опций будут добавлены через JavaScript -->
+                    <!-- Options will be added by JavaScript -->
                 </div>
                 
                 <div class="feedback" id="feedback"></div>
                 
                 <div class="explanation" id="explanation"></div>
                 
-                <button class="next-btn" id="next-btn">Следующий вопрос <i class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" id="next-btn">Next Question <i class="fas fa-arrow-right"></i></button>
             </div>
             
             <div class="game-complete" id="game-complete">
-                <h2 class="result-title">Игра завершена!</h2>
-                <p>Твой финальный результат:</p>
+                <h2 class="result-title">Game Complete!</h2>
+                <p>Your final score:</p>
                 <div class="final-score" id="final-score">0/20</div>
-                <p id="result-message">Отличная работа!</p>
-                <button class="restart-btn" id="restart-btn"><i class="fas fa-redo"></i> Играть снова</button>
+                <p id="result-message">Great job!</p>
+                <button class="restart-btn" id="restart-btn"><i class="fas fa-redo"></i> Play Again</button>
             </div>
         </div>
         
-        <!-- Мини-игра: Собери предложение -->
+        <!-- Mini-game: Sentence Builder -->
         <div class="game-container mini-game-container" id="builder-game">
             <div class="score-board">
                 <div class="score">
-                    Уровень: <span id="current-level">1</span>/<span id="total-levels">10</span>
+                    Level: <span id="current-level">1</span>/<span id="total-levels">10</span>
                 </div>
                 <div class="score">
-                    Счёт: <span class="score-value" id="builder-score">0</span>
+                    Score: <span class="score-value" id="builder-score">0</span>
                 </div>
-                <div class="score timer" id="builder-timer">Время: 90с</div>
+                <div class="timer" id="builder-timer">Time: 90s</div>
             </div>
             
             <div class="progress-bar">
@@ -532,253 +605,257 @@
             </div>
             
             <div class="sentence-builder">
-                <h3 id="sentence-instruction">Собери правильное предложение из слов ниже:</h3>
+                <h3 id="sentence-instruction">Build the correct sentence from the words below:</h3>
                 <div class="sentence-parts" id="sentence-parts">
-                    <!-- Слова будут добавлены через JavaScript -->
+                    <!-- Words will be added by JavaScript -->
                 </div>
                 
                 <div class="sentence-area" id="sentence-area">
-                    Перетащите слова сюда
+                    Drag words here
                 </div>
                 
-                <button class="check-btn" id="check-btn">Проверить <i class="fas fa-check"></i></button>
+                <button class="check-btn" id="check-btn">Check <i class="fas fa-check"></i></button>
                 <div class="hint" id="hint"></div>
                 
                 <div class="feedback" id="builder-feedback"></div>
                 
-                <button class="next-btn" id="builder-next-btn">Следующий уровень <i class="fas fa-arrow-right"></i></button>
+                <button class="next-btn" id="builder-next-btn">Next Level <i class="fas fa-arrow-right"></i></button>
             </div>
             
             <div class="game-complete" id="builder-complete">
-                <h2 class="result-title">Мини-игра завершена!</h2>
-                <p>Твой финальный результат:</p>
-                <div class="final-score" id="builder-final-score">0/10</div>
-                <p id="builder-result-message">Отличная работа!</p>
-                <button class="restart-btn" id="builder-restart-btn"><i class="fas fa-redo"></i> Играть снова</button>
+                <h2 class="result-title">Mini-game Complete!</h2>
+                <p>Your final score:</p>
+                <div class="final-score" id="builder-final-score">0/100</div>
+                <p id="builder-result-message">Great job!</p>
+                <button class="restart-btn" id="builder-restart-btn"><i class="fas fa-redo"></i> Play Again</button>
             </div>
         </div>
+        
+        <footer>
+            <p>Educational game for learning Zero Conditional and First Conditional. Made with ❤️ for English learners.</p>
+        </footer>
     </div>
 
     <script>
-        // Вопросы для викторины (20 вопросов)
+        // Quiz questions (20 questions)
         const quizQuestions = [
             {
                 question: "If you ______ water to 100°C, it ______.",
                 options: ["heat / boils", "will heat / boils"],
                 correct: 0,
-                explanation: "Zero Conditional: это научный факт, поэтому используем Present Simple в обеих частях.",
+                explanation: "Zero Conditional: This is a scientific fact, so we use Present Simple in both parts.",
                 type: "zero"
             },
             {
                 question: "If she ______ enough money, she ______ a new car next month.",
                 options: ["has / will buy", "will have / buys"],
                 correct: 0,
-                explanation: "First Conditional: реальная ситуация в будущем (if + Present Simple, will + инфинитив).",
+                explanation: "First Conditional: Real future situation (if + Present Simple, will + infinitive).",
                 type: "first"
             },
             {
                 question: "If you ______ in the sun too long, you ______ sunburned.",
                 options: ["will stay / get", "stay / get"],
                 correct: 1,
-                explanation: "Zero Conditional: общая закономерность, которая всегда верна.",
+                explanation: "Zero Conditional: General truth that is always true.",
                 type: "zero"
             },
             {
                 question: "If it ______ tomorrow, we ______ to the park.",
                 options: ["rains / won't go", "will rain / don't go"],
                 correct: 0,
-                explanation: "First Conditional: возможная ситуация в будущем и её последствие.",
+                explanation: "First Conditional: Possible future situation and its consequence.",
                 type: "first"
             },
             {
                 question: "If you ______ ice, it ______.",
                 options: ["will melt / floats", "melt / floats"],
                 correct: 1,
-                explanation: "Zero Conditional: научный факт о свойствах воды.",
+                explanation: "Zero Conditional: Scientific fact about water properties.",
                 type: "zero"
             },
             {
                 question: "If I ______ time tonight, I ______ that new movie.",
                 options: ["have / will watch", "will have / watch"],
                 correct: 0,
-                explanation: "First Conditional: реальное намерение в зависимости от условия.",
+                explanation: "First Conditional: Real intention depending on condition.",
                 type: "first"
             },
             {
                 question: "If people ______ enough sleep, they ______ better.",
                 options: ["get / feel", "will get / feel"],
                 correct: 0,
-                explanation: "Zero Conditional: общая истина о здоровье человека.",
+                explanation: "Zero Conditional: General truth about human health.",
                 type: "zero"
             },
             {
                 question: "If you ______ this button, the machine ______.",
                 options: ["will press / stops", "press / will stop"],
                 correct: 1,
-                explanation: "First Conditional: описание возможного действия и его результата.",
+                explanation: "First Conditional: Description of possible action and its result.",
                 type: "first"
             },
             {
                 question: "If you ______ plants, they ______.",
                 options: ["don't water / die", "won't water / die"],
                 correct: 0,
-                explanation: "Zero Conditional: общая истина о растениях.",
+                explanation: "Zero Conditional: General truth about plants.",
                 type: "zero"
             },
             {
                 question: "If he ______ late again, he ______ his job.",
                 options: ["is / will lose", "will be / loses"],
                 correct: 0,
-                explanation: "First Conditional: возможное будущее последствие.",
+                explanation: "First Conditional: Possible future consequence.",
                 type: "first"
             },
             {
                 question: "If you ______ chocolate in your hand, it ______.",
                 options: ["hold / will melt", "will hold / melts"],
                 correct: 0,
-                explanation: "Zero Conditional: общая истина о свойствах шоколада.",
+                explanation: "Zero Conditional: General truth about chocolate properties.",
                 type: "zero"
             },
             {
                 question: "If we ______ now, we ______ there on time.",
                 options: ["leave / will arrive", "will leave / arrive"],
                 correct: 0,
-                explanation: "First Conditional: реальная ситуация в будущем.",
+                explanation: "First Conditional: Real future situation.",
                 type: "first"
             },
             {
                 question: "If babies ______ hungry, they ______.",
                 options: ["are / will cry", "are / cry"],
                 correct: 1,
-                explanation: "Zero Conditional: общая закономерность поведения детей.",
+                explanation: "Zero Conditional: General pattern of children's behavior.",
                 type: "zero"
             },
             {
                 question: "If you ______ harder, you ______ the exam.",
                 options: ["study / will pass", "will study / pass"],
                 correct: 0,
-                explanation: "First Conditional: возможное будущее последствие действий.",
+                explanation: "First Conditional: Possible future consequence of actions.",
                 type: "first"
             },
             {
                 question: "If you ______ two and two, you ______ four.",
                 options: ["add / get", "will add / get"],
                 correct: 0,
-                explanation: "Zero Conditional: математическая истина.",
+                explanation: "Zero Conditional: Mathematical truth.",
                 type: "zero"
             },
             {
                 question: "If the weather ______ good, we ______ a picnic.",
                 options: ["is / will have", "will be / have"],
                 correct: 0,
-                explanation: "First Conditional: планы на будущее в зависимости от условий.",
+                explanation: "First Conditional: Future plans depending on conditions.",
                 type: "first"
             },
             {
                 question: "If you ______ a magnet near iron, it ______.",
                 options: ["hold / will attract", "hold / attracts"],
                 correct: 1,
-                explanation: "Zero Conditional: физическая закономерность.",
+                explanation: "Zero Conditional: Physical law.",
                 type: "zero"
             },
             {
                 question: "If she ______ the train, she ______ late for work.",
                 options: ["misses / will be", "will miss / is"],
                 correct: 0,
-                explanation: "First Conditional: возможное будущее последствие.",
+                explanation: "First Conditional: Possible future consequence.",
                 type: "first"
             },
             {
                 question: "If you ______ sugar in water, it ______.",
                 options: ["put / dissolves", "will put / dissolves"],
                 correct: 0,
-                explanation: "Zero Conditional: химическая истина.",
+                explanation: "Zero Conditional: Chemical truth.",
                 type: "zero"
             },
             {
                 question: "If they ______ us, we ______ them to the party.",
                 options: ["call / will invite", "will call / invite"],
                 correct: 0,
-                explanation: "First Conditional: планы на будущее.",
+                explanation: "First Conditional: Future plans.",
                 type: "first"
             }
         ];
         
-        // Уровни для мини-игры "Собери предложение"
+        // Levels for Sentence Builder mini-game
         const builderLevels = [
             {
-                instruction: "Собери предложение Zero Conditional:",
+                instruction: "Build a Zero Conditional sentence:",
                 words: ["If", "you", "heat", "ice", "it", "melts"],
                 correctOrder: [0, 1, 2, 3, 4, 5],
-                hint: "Помни: If + Present Simple, Present Simple",
+                hint: "Remember: If + Present Simple, Present Simple",
                 type: "zero"
             },
             {
-                instruction: "Собери предложение First Conditional:",
+                instruction: "Build a First Conditional sentence:",
                 words: ["If", "it", "rains", "I", "will", "stay", "home"],
                 correctOrder: [0, 1, 2, 3, 6, 4, 5],
-                hint: "Помни: If + Present Simple, will + инфинитив",
+                hint: "Remember: If + Present Simple, will + infinitive",
                 type: "first"
             },
             {
-                instruction: "Собери предложение Zero Conditional:",
+                instruction: "Build a Zero Conditional sentence:",
                 words: ["If", "people", "don't", "eat", "they", "get", "hungry"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6],
-                hint: "Общая истина о людях",
+                hint: "General truth about people",
                 type: "zero"
             },
             {
-                instruction: "Собери предложение First Conditional:",
+                instruction: "Build a First Conditional sentence:",
                 words: ["We", "will", "go", "to", "the", "beach", "if", "the", "weather", "is", "nice"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                hint: "Часть с 'if' может быть в конце предложения",
+                hint: "The 'if' part can be at the end of the sentence",
                 type: "first"
             },
             {
-                instruction: "Собери предложение Zero Conditional:",
+                instruction: "Build a Zero Conditional sentence:",
                 words: ["Water", "boils", "if", "you", "heat", "it", "to", "100°C"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7],
-                hint: "Часть с 'if' может быть в конце",
+                hint: "The 'if' part can be at the end",
                 type: "zero"
             },
             {
-                instruction: "Собери предложение First Conditional:",
+                instruction: "Build a First Conditional sentence:",
                 words: ["If", "you", "don't", "hurry", "you", "will", "miss", "the", "bus"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                hint: "Отрицательная форма в условии",
+                hint: "Negative form in the condition",
                 type: "first"
             },
             {
-                instruction: "Собери предложение Zero Conditional:",
+                instruction: "Build a Zero Conditional sentence:",
                 words: ["If", "you", "mix", "blue", "and", "yellow", "you", "get", "green"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                hint: "Это общая истина о цветах",
+                hint: "This is a general truth about colors",
                 type: "zero"
             },
             {
-                instruction: "Собери предложение First Conditional:",
+                instruction: "Build a First Conditional sentence:",
                 words: ["She", "will", "be", "happy", "if", "she", "passes", "the", "exam"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                hint: "Часть с 'if' в середине предложения",
+                hint: "The 'if' part in the middle of the sentence",
                 type: "first"
             },
             {
-                instruction: "Собери предложение Zero Conditional:",
+                instruction: "Build a Zero Conditional sentence:",
                 words: ["If", "plants", "don't", "get", "enough", "water", "they", "die"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7],
-                hint: "Общая истина о растениях",
+                hint: "General truth about plants",
                 type: "zero"
             },
             {
-                instruction: "Собери предложение First Conditional:",
+                instruction: "Build a First Conditional sentence:",
                 words: ["If", "I", "see", "him", "I", "will", "tell", "him", "the", "news"],
                 correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                hint: "Прямой порядок слов в обеих частях",
+                hint: "Direct word order in both parts",
                 type: "first"
             }
         ];
         
-        // Элементы DOM для викторины
+        // DOM elements for Quiz
         const quizGame = document.getElementById('quiz-game');
         const questionText = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
@@ -796,7 +873,7 @@
         const restartBtn = document.getElementById('restart-btn');
         const quizTimer = document.getElementById('quiz-timer');
         
-        // Элементы DOM для мини-игры
+        // DOM elements for Mini-game
         const builderGame = document.getElementById('builder-game');
         const builderScore = document.getElementById('builder-score');
         const builderProgress = document.getElementById('builder-progress');
@@ -815,18 +892,18 @@
         const sentenceInstruction = document.getElementById('sentence-instruction');
         const builderTimer = document.getElementById('builder-timer');
         
-        // Элементы для переключения игр
+        // Elements for game switching
         const quizBtn = document.getElementById('quiz-btn');
         const builderBtn = document.getElementById('builder-btn');
         
-        // Игровые переменные для викторины
+        // Game variables for Quiz
         let currentQuestionIndex = 0;
         let quizScore = 0;
         let quizActive = false;
         let quizTimeLeft = 60;
         let quizTimerInterval;
         
-        // Игровые переменные для мини-игры
+        // Game variables for Mini-game
         let currentLevelIndex = 0;
         let builderScoreValue = 0;
         let builderActive = false;
@@ -834,7 +911,7 @@
         let builderTimerInterval;
         let draggedWord = null;
         
-        // Инициализация викторины
+        // Initialize Quiz
         function initQuiz() {
             currentQuestionIndex = 0;
             quizScore = 0;
@@ -854,11 +931,11 @@
             loadQuestion();
         }
         
-        // Запуск таймера для викторины
+        // Start Quiz timer
         function startQuizTimer() {
             quizTimerInterval = setInterval(() => {
                 quizTimeLeft--;
-                quizTimer.textContent = `Время: ${quizTimeLeft}с`;
+                quizTimer.textContent = `Time: ${quizTimeLeft}s`;
                 
                 if (quizTimeLeft <= 0) {
                     clearInterval(quizTimerInterval);
@@ -867,22 +944,22 @@
             }, 1000);
         }
         
-        // Загрузка вопроса в викторине
+        // Load question in Quiz
         function loadQuestion() {
             const question = quizQuestions[currentQuestionIndex];
             questionText.textContent = question.question;
             
-            // Обновление прогресса
+            // Update progress
             const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
             progressBar.style.width = `${progress}%`;
             
-            // Обновление номера вопроса
+            // Update question number
             currentQuestionEl.textContent = currentQuestionIndex + 1;
             
-            // Очистка контейнера опций
+            // Clear options container
             optionsContainer.innerHTML = '';
             
-            // Создание кнопок опций
+            // Create option buttons
             question.options.forEach((option, index) => {
                 const button = document.createElement('button');
                 button.className = `option-btn ${index === 0 ? 'zero-option' : 'first-option'}`;
@@ -891,13 +968,13 @@
                 optionsContainer.appendChild(button);
             });
             
-            // Скрыть feedback и explanation
+            // Hide feedback and explanation
             feedback.style.display = 'none';
             explanation.style.display = 'none';
             nextBtn.style.display = 'none';
         }
         
-        // Выбор опции в викторине
+        // Select option in Quiz
         function selectOption(selectedIndex) {
             if (!quizActive) return;
             
@@ -905,24 +982,24 @@
             const question = quizQuestions[currentQuestionIndex];
             const optionButtons = document.querySelectorAll('.option-btn');
             
-            // Показать правильный ответ и feedback
+            // Show correct answer and feedback
             if (selectedIndex === question.correct) {
                 quizScore++;
                 scoreValue.textContent = quizScore;
                 feedback.className = 'feedback correct';
-                feedback.innerHTML = `<i class="fas fa-check-circle"></i> Правильно!`;
+                feedback.innerHTML = `<i class="fas fa-check-circle"></i> Correct!`;
             } else {
                 feedback.className = 'feedback incorrect';
-                feedback.innerHTML = `<i class="fas fa-times-circle"></i> Неправильно!`;
+                feedback.innerHTML = `<i class="fas fa-times-circle"></i> Incorrect!`;
             }
             
             feedback.style.display = 'block';
             
-            // Показать объяснение
+            // Show explanation
             explanation.textContent = question.explanation;
             explanation.style.display = 'block';
             
-            // Выделить правильный и неправильный ответы
+            // Highlight correct and incorrect answers
             optionButtons.forEach((button, index) => {
                 button.disabled = true;
                 if (index === question.correct) {
@@ -933,11 +1010,11 @@
                 }
             });
             
-            // Показать кнопку "Следующий вопрос"
+            // Show "Next Question" button
             nextBtn.style.display = 'block';
         }
         
-        // Переход к следующему вопросу в викторине
+        // Go to next question in Quiz
         nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             
@@ -949,32 +1026,32 @@
             }
         });
         
-        // Завершение викторины
+        // End Quiz
         function endQuiz() {
             clearInterval(quizTimerInterval);
             gameArea.style.display = 'none';
             gameComplete.style.display = 'block';
             
-            // Обновить прогресс-бар до 100%
+            // Update progress bar to 100%
             progressBar.style.width = '100%';
             
-            // Показать финальный счет
+            // Show final score
             finalScore.textContent = `${quizScore}/${quizQuestions.length}`;
             
-            // Показать сообщение в зависимости от результата
+            // Show message based on result
             const percentage = (quizScore / quizQuestions.length) * 100;
             if (percentage >= 90) {
-                resultMessage.textContent = "Отлично! Ты настоящий мастер conditional sentences!";
+                resultMessage.textContent = "Excellent! You're a true master of conditional sentences!";
             } else if (percentage >= 70) {
-                resultMessage.textContent = "Хорошая работа! Ты хорошо разбираешься в conditional sentences!";
+                resultMessage.textContent = "Good job! You understand conditional sentences well!";
             } else if (percentage >= 50) {
-                resultMessage.textContent = "Неплохо! Но есть над чем поработать.";
+                resultMessage.textContent = "Not bad! But there's room for improvement.";
             } else {
-                resultMessage.textContent = "Попробуй еще раз! Обрати внимание на правила выше.";
+                resultMessage.textContent = "Try again! Pay attention to the rules above.";
             }
         }
         
-        // Инициализация мини-игры
+        // Initialize Mini-game
         function initBuilder() {
             currentLevelIndex = 0;
             builderScoreValue = 0;
@@ -994,11 +1071,11 @@
             loadLevel();
         }
         
-        // Запуск таймера для мини-игры
+        // Start Mini-game timer
         function startBuilderTimer() {
             builderTimerInterval = setInterval(() => {
                 builderTimeLeft--;
-                builderTimer.textContent = `Время: ${builderTimeLeft}с`;
+                builderTimer.textContent = `Time: ${builderTimeLeft}s`;
                 
                 if (builderTimeLeft <= 0) {
                     clearInterval(builderTimerInterval);
@@ -1007,25 +1084,25 @@
             }, 1000);
         }
         
-        // Загрузка уровня в мини-игре
+        // Load level in Mini-game
         function loadLevel() {
             const level = builderLevels[currentLevelIndex];
             sentenceInstruction.textContent = level.instruction;
             hint.textContent = level.hint;
             
-            // Обновление прогресса
+            // Update progress
             const progress = ((currentLevelIndex) / builderLevels.length) * 100;
             builderProgress.style.width = `${progress}%`;
             
-            // Обновление номера уровня
+            // Update level number
             currentLevelEl.textContent = currentLevelIndex + 1;
             
-            // Очистка контейнеров
+            // Clear containers
             sentenceParts.innerHTML = '';
-            sentenceArea.innerHTML = 'Перетащите слова сюда';
+            sentenceArea.innerHTML = 'Drag words here';
             sentenceArea.className = 'sentence-area';
             
-            // Создание перемешиваемых слов
+            // Create shuffled words
             const shuffledWords = [...level.words].sort(() => Math.random() - 0.5);
             
             shuffledWords.forEach((word, index) => {
@@ -1035,6 +1112,18 @@
                 wordBox.draggable = true;
                 wordBox.dataset.index = level.words.indexOf(word);
                 
+                // Add touch events for mobile
+                wordBox.addEventListener('touchstart', (e) => {
+                    draggedWord = wordBox;
+                    wordBox.classList.add('dragging');
+                    e.preventDefault();
+                });
+                
+                wordBox.addEventListener('touchend', () => {
+                    wordBox.classList.remove('dragging');
+                });
+                
+                // Add mouse events for desktop
                 wordBox.addEventListener('dragstart', (e) => {
                     draggedWord = wordBox;
                     wordBox.classList.add('dragging');
@@ -1048,7 +1137,44 @@
                 sentenceParts.appendChild(wordBox);
             });
             
-            // Настройка области для перетаскивания
+            // Setup drop area for mobile
+            sentenceArea.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+            });
+            
+            sentenceArea.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (draggedWord) {
+                    // Check if word already added
+                    const wordIndex = draggedWord.dataset.index;
+                    const existingWord = sentenceArea.querySelector(`[data-index="${wordIndex}"]`);
+                    
+                    if (!existingWord) {
+                        const newWord = draggedWord.cloneNode(true);
+                        newWord.draggable = true;
+                        newWord.style.cursor = 'pointer';
+                        
+                        // Add tap to remove on mobile
+                        newWord.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            sentenceArea.removeChild(newWord);
+                            // Return word to top area
+                            sentenceParts.appendChild(draggedWord);
+                        });
+                        
+                        // Add click to remove on desktop
+                        newWord.addEventListener('click', () => {
+                            sentenceArea.removeChild(newWord);
+                            sentenceParts.appendChild(draggedWord);
+                        });
+                        
+                        sentenceArea.appendChild(newWord);
+                    }
+                }
+                draggedWord = null;
+            });
+            
+            // Setup drop area for desktop
             sentenceArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 sentenceArea.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
@@ -1063,7 +1189,7 @@
                 sentenceArea.style.backgroundColor = '';
                 
                 if (draggedWord) {
-                    // Проверяем, не добавлено ли уже это слово
+                    // Check if word already added
                     const wordIndex = draggedWord.dataset.index;
                     const existingWord = sentenceArea.querySelector(`[data-index="${wordIndex}"]`);
                     
@@ -1074,7 +1200,7 @@
                         
                         newWord.addEventListener('click', () => {
                             sentenceArea.removeChild(newWord);
-                            // Возвращаем слово обратно в верхнюю часть
+                            // Return word to top area
                             sentenceParts.appendChild(draggedWord);
                         });
                         
@@ -1083,12 +1209,12 @@
                 }
             });
             
-            // Скрыть feedback
+            // Hide feedback
             builderFeedback.style.display = 'none';
             builderNextBtn.style.display = 'none';
         }
         
-        // Проверка правильности предложения
+        // Check sentence correctness
         checkBtn.addEventListener('click', () => {
             if (!builderActive) return;
             
@@ -1096,18 +1222,18 @@
             const wordsInArea = Array.from(sentenceArea.querySelectorAll('.word-box'));
             const userOrder = wordsInArea.map(word => parseInt(word.dataset.index));
             
-            // Проверяем, совпадает ли порядок
+            // Check if order matches
             const isCorrect = JSON.stringify(userOrder) === JSON.stringify(level.correctOrder);
             
             if (isCorrect) {
                 builderScoreValue += 10;
                 builderScore.textContent = builderScoreValue;
                 builderFeedback.className = 'feedback correct';
-                builderFeedback.innerHTML = `<i class="fas fa-check-circle"></i> Правильно! Это ${level.type === 'zero' ? 'Zero' : 'First'} Conditional.`;
+                builderFeedback.innerHTML = `<i class="fas fa-check-circle"></i> Correct! This is ${level.type === 'zero' ? 'Zero' : 'First'} Conditional.`;
                 sentenceArea.className = 'sentence-area valid';
             } else {
                 builderFeedback.className = 'feedback incorrect';
-                builderFeedback.innerHTML = `<i class="fas fa-times-circle"></i> Неправильно! Попробуй еще раз.`;
+                builderFeedback.innerHTML = `<i class="fas fa-times-circle"></i> Incorrect! Try again.`;
                 sentenceArea.className = 'sentence-area invalid';
             }
             
@@ -1116,7 +1242,7 @@
             builderActive = false;
         });
         
-        // Переход к следующему уровню
+        // Go to next level
         builderNextBtn.addEventListener('click', () => {
             currentLevelIndex++;
             
@@ -1128,32 +1254,32 @@
             }
         });
         
-        // Завершение мини-игры
+        // End Mini-game
         function endBuilder() {
             clearInterval(builderTimerInterval);
             document.querySelector('.sentence-builder').style.display = 'none';
             builderComplete.style.display = 'block';
             
-            // Обновить прогресс-бар до 100%
+            // Update progress bar to 100%
             builderProgress.style.width = '100%';
             
-            // Показать финальный счет
+            // Show final score
             builderFinalScore.textContent = `${builderScoreValue}/${builderLevels.length * 10}`;
             
-            // Показать сообщение в зависимости от результата
+            // Show message based on result
             const percentage = (builderScoreValue / (builderLevels.length * 10)) * 100;
             if (percentage >= 90) {
-                builderResultMessage.textContent = "Отлично! Ты отлично составляешь conditional sentences!";
+                builderResultMessage.textContent = "Excellent! You're great at building conditional sentences!";
             } else if (percentage >= 70) {
-                builderResultMessage.textContent = "Хорошая работа! Ты хорошо составляешь предложения!";
+                builderResultMessage.textContent = "Good job! You build sentences well!";
             } else if (percentage >= 50) {
-                builderResultMessage.textContent = "Неплохо! Но есть над чем поработать.";
+                builderResultMessage.textContent = "Not bad! But there's room for improvement.";
             } else {
-                builderResultMessage.textContent = "Попробуй еще раз! Обрати внимание на правила выше.";
+                builderResultMessage.textContent = "Try again! Pay attention to the rules above.";
             }
         }
         
-        // Переключение между играми
+        // Switch between games
         quizBtn.addEventListener('click', () => {
             quizBtn.classList.add('active');
             builderBtn.classList.remove('active');
@@ -1170,14 +1296,21 @@
             initBuilder();
         });
         
-        // Перезапуск игр
+        // Restart games
         restartBtn.addEventListener('click', initQuiz);
         builderRestartBtn.addEventListener('click', initBuilder);
         
-        // Запуск викторины при загрузке страницы
+        // Start quiz on page load
         window.addEventListener('DOMContentLoaded', () => {
             initQuiz();
         });
+        
+        // Prevent scrolling when dragging on mobile
+        document.addEventListener('touchmove', function(e) {
+            if (draggedWord) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
