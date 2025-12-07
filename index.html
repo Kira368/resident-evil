@@ -613,7 +613,7 @@
                 <div class="score">
                     Score: <span class="score-value" id="score-value">0</span>
                 </div>
-                <div class="timer" id="quiz-timer">Time: 200s</div>
+                <div class="timer" id="quiz-timer">Time: 670s</div>
             </div>
             
             <div class="progress-bar">
@@ -654,7 +654,7 @@
                 <div class="score">
                     Score: <span class="score-value" id="builder-score">0</span>
                 </div>
-                <div class="timer" id="builder-timer">Time: 200s</div>
+                <div class="timer" id="builder-timer">Time: 670s</div>
             </div>
             
             <div class="progress-bar">
@@ -968,14 +968,14 @@
         let currentQuestionIndex = 0;
         let quizScore = 0;
         let quizActive = false;
-        let quizTimeLeft = 200;
+        let quizTimeLeft = 670;
         let quizTimerInterval;
         
         // Game variables for Mini-game
         let currentLevelIndex = 0;
         let builderScoreValue = 0;
         let builderActive = false;
-        let builderTimeLeft = 200;
+        let builderTimeLeft = 670;
         let builderTimerInterval;
         
         // Variables for sentence building
@@ -988,7 +988,7 @@
             currentQuestionIndex = 0;
             quizScore = 0;
             quizActive = true;
-            quizTimeLeft = 200;
+            quizTimeLeft = 670;
             
             scoreValue.textContent = quizScore;
             currentQuestionEl.textContent = currentQuestionIndex + 1;
@@ -1128,7 +1128,7 @@
             currentLevelIndex = 0;
             builderScoreValue = 0;
             builderActive = true;
-            builderTimeLeft = 200;
+            builderTimeLeft = 670;
             
             builderScore.textContent = builderScoreValue;
             currentLevelEl.textContent = currentLevelIndex + 1;
@@ -1410,6 +1410,7 @@
     </script>
 </body>
 </html>
+
 
 
 
